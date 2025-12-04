@@ -1,0 +1,24 @@
+{
+  "name": "Targeted Date Range Control",
+  "organization": "QREW",
+  "description": "A date selector that filters specific date columns, allowing for multiple independent date filters on a single dashboard.",
+  "logoUrl": "https://raw.githubusercontent.com/google/dscc-scripts/master/viz/assets/logo.png",
+  "organizationUrl": "https://github.com/landanqrew",
+  "supportUrl": "https://github.com/landanqrew/looker-studio-custom-date-selector/issues",
+  "privacyPolicyUrl": "https://github.com/landanqrew/looker-studio-custom-date-selector/blob/main/PRIVACY.md",
+  "termsOfServiceUrl": "https://github.com/landanqrew/looker-studio-custom-date-selector/blob/main/TERMS.md",
+  "packageUrl": "https://github.com/landanqrew/looker-studio-custom-date-selector",
+  "devMode": true,
+  "components": [
+    {
+      "name": "Targeted Date Range Control",
+      "description": "Select a date range to filter a specific date column.",
+      "iconUrl": "https://raw.githubusercontent.com/google/dscc-scripts/master/viz/assets/icon.png",
+      "resource": {
+        "js": "gs://qrew-looker-studio-visualizations/qrew-custom-date-selector/dev/index.js",
+        "config": "gs://qrew-looker-studio-visualizations/qrew-custom-date-selector/dev/index.json",
+        "css": "gs://qrew-looker-studio-visualizations/qrew-custom-date-selector/dev/index.css"
+      }
+    }
+  ]
+}

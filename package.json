@@ -1,0 +1,42 @@
+{
+  "name": "looker-studio-custom-date-selector",
+  "version": "1.0.0",
+  "description": "community visualization for date selection in looker studio",
+  "main": "index.js",
+  "dsccViz": {
+    "gcsDevBucket": "gs://qrew-looker-studio-visualizations/qrew-custom-date-selector/dev/",
+    "gcsProdBucket": "gs://qrew-looker-studio-visualizations/qrew-custom-date-selector/prod/",
+    "jsFile": "index.js",
+    "jsonFile": "index.json",
+    "cssFile": "index.css"
+  },
+  "scripts": {
+    "build:dev": "export NODE_OPTIONS=--openssl-legacy-provider && export npm_package_dsccViz_jsonFile=index.json && export npm_package_dsccViz_jsFile=index.js && export npm_package_dsccViz_cssFile=index.css && export npm_package_dsccViz_gcsDevBucket=gs://qrew-looker-studio-visualizations/qrew-custom-date-selector/dev/ && export npm_package_dsccViz_gcsProdBucket=gs://qrew-looker-studio-visualizations/qrew-custom-date-selector/prod/ && dscc-scripts viz build -d dev",
+    "build:prod": "export NODE_OPTIONS=--openssl-legacy-provider && dscc-scripts viz build -d prod",
+    "push:dev": "export NODE_OPTIONS=--openssl-legacy-provider && export npm_package_dsccViz_jsonFile=index.json && export npm_package_dsccViz_jsFile=index.js && export npm_package_dsccViz_cssFile=index.css && export npm_package_dsccViz_gcsDevBucket=gs://qrew-looker-studio-visualizations/qrew-custom-date-selector/dev/ && export npm_package_dsccViz_gcsProdBucket=gs://qrew-looker-studio-visualizations/qrew-custom-date-selector/prod/ && dscc-scripts viz push -d dev",
+    "push:prod": "export NODE_OPTIONS=--openssl-legacy-provider && dscc-scripts viz push -d prod",
+    "update_message": "dscc-scripts viz update_message -f object",
+    "start": "export NODE_OPTIONS=--openssl-legacy-provider && export npm_package_dsccViz_jsonFile=index.json && export npm_package_dsccViz_jsFile=index.js && export npm_package_dsccViz_cssFile=index.css && export npm_package_dsccViz_gcsDevBucket=gs://qrew-looker-studio-visualizations/qrew-custom-date-selector/dev/ && export npm_package_dsccViz_gcsProdBucket=gs://qrew-looker-studio-visualizations/qrew-custom-date-selector/prod/ && dscc-scripts viz start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/landanqrew/looker-studio-custom-date-selector.git"
+  },
+  "devDependencies": {
+    "@google/dscc": "^0.3.17",
+    "@google/dscc-scripts": "^1.0.17",
+    "@types/jest": "^30.0.0",
+    "copy-webpack-plugin": "^4.6.0",
+    "jest": "^29.7.0"
+  },
+  "keywords": [
+    "looker",
+    "studio"
+  ],
+  "author": "landanqrew",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/landanqrew/looker-studio-custom-date-selector/issues"
+  },
+  "homepage": "https://github.com/landanqrew/looker-studio-custom-date-selector#readme"
+}

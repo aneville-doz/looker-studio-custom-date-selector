@@ -1,0 +1,67 @@
+{
+  "data": [
+    {
+      "id": "dateField",
+      "label": "Date Field to Filter",
+      "elements": [
+        {
+          "id": "dateDimension",
+          "label": "Date Dimension",
+          "type": "DIMENSION",
+          "options": {
+            "min": 1,
+            "max": 1,
+            "supportedTypes": ["DEFAULT"]
+          }
+        }
+      ]
+    }
+  ],
+  "style": [
+    {
+      "id": "style",
+      "label": "Style",
+      "elements": [
+        {
+          "type": "FONT_COLOR",
+          "id": "fontColor",
+          "label": "Font Color",
+          "defaultValue": {
+            "color": "#000000"
+          }
+        },
+        {
+          "type": "FONT_FAMILY",
+          "id": "fontFamily",
+          "label": "Font Family",
+          "defaultValue": "Roboto"
+        },
+        {
+          "type": "FILL_COLOR",
+          "id": "backgroundColor",
+          "label": "Background Color",
+          "defaultValue": {
+            "color": "#ffffff"
+          }
+        },
+        {
+          "type": "TEXTINPUT",
+          "id": "borderRadius",
+          "label": "Border Radius (px)",
+          "defaultValue": "4"
+        },
+        {
+          "type": "OPACITY",
+          "id": "opacity",
+          "label": "Opacity"
+        }
+      ]
+    }
+  ],
+  "interactions": [
+    {
+      "id": "crossFilter",
+      "supportedActions": ["FILTER"]
+    }
+  ]
+}
