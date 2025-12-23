@@ -1,32 +1,106 @@
+html, body {
+  height: 100%;
+}
+
 body {
   margin: 0;
-  padding: 0;
+  padding: 4px;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: flex-start; /* Align left by default */
-  height: 100vh; /* Full height of iframe */
+  font-family: Roboto, Arial, sans-serif;
   overflow: hidden;
 }
 
 .date-selector-container {
   display: flex;
   align-items: center;
-  padding: 8px;
-  border: 1px solid #ccc; /* Default border, maybe customizable later */
+  gap: 6px;
+  padding: 6px 8px;
+  border: var(--ls-border-width, 1px) solid var(--ls-border-color, #DADCE0);
+  border-radius: var(--ls-border-radius, 8px);
+  background: var(--ls-bg-color, #ffffff);
+  box-shadow: 0 2px 8px 0 rgba(26, 115, 232, 0.16);
+  color: var(--ls-font-color, #202124);
+  font-family: var(--ls-font-family, Roboto);
   box-sizing: border-box;
-  /* Font and BG colors set inline via JS */
+  user-select: none;
 }
 
 .date-input {
-  border: none;
+  border: 1px solid transparent;
   background: transparent;
   font-family: inherit;
-  font-size: 14px;
+  font-size: var(--ls-input-font-size, 14px);
+  line-height: 1.2;
+  padding: 4px 6px;
+  border-radius: /*calc(var(--ls-border-radius, 8px) - 2px)*/ var(--ls-border-radius, 8px);
   outline: none;
   cursor: pointer;
+  min-width: 128px;
+}
+
+.date-input:hover {
+  background: rgba(60, 64, 67, 0.06);
+}
+
+.date-input:focus-visible {
+  border-color: rgba(26, 115, 232, 0.55);
+  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.22);
+  background: rgba(26, 115, 232, 0.06);
+}
+
+/* Style the calendar icon for webkit browsers (Chrome, Safari, Edge) */
+.date-input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 1;
+  padding: 2px;
+}
+
+/* Dark icon - for light backgrounds (dark text) */
+.date-input.dark-icon::-webkit-calendar-picker-indicator {
+  filter: invert(0) brightness(0) saturate(100%);
+  opacity: 0.7;
+}
+
+/* Light icon - for dark backgrounds (light text) */
+.date-input.light-icon::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(1) saturate(100%);
+  opacity: 0.7;
+}
+
+/* Match icon color to text color using CSS custom properties */
+.date-input {
+  color-scheme: light;
+}
+
+/*.date-input.light-icon {*/
+  /* Suggest dark UI for native controls when icon is light (dark background scenario). */
+  /* color-scheme: dark; */ 
+/* } */
+
+/* Firefox fallback - use accent-color if supported */
+@supports (accent-color: black) {
+  .date-input {
+    accent-color: currentColor;
+  }
 }
 
 .date-separator {
-  margin: 0 8px;
-  font-size: 14px;
+  margin: 0 2px;
+  font-size: var(--ls-secondary-font-size, var(--ls-input-font-size, 14px));
+  color: color-mix(in srgb, currentColor 75%, transparent);
+  white-space: nowrap;
+}
+
+@media (max-width: 260px) {
+  .date-selector-container {
+    gap: 4px;
+    padding: 6px;
+  }
+  .date-input {
+    min-width: 0;
+    width: 100%;
+  }
 }

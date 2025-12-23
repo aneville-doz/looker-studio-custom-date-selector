@@ -10,8 +10,7 @@
           "type": "DIMENSION",
           "options": {
             "min": 1,
-            "max": 1,
-            "supportedTypes": ["DEFAULT"]
+            "max": 1
           }
         }
       ]
@@ -19,8 +18,31 @@
   ],
   "style": [
     {
-      "id": "style",
-      "label": "Style",
+      "id": "fieldConfiguration",
+      "label": "Field Configuration",
+      "elements": [
+        {
+          "type": "TEXTINPUT",
+          "id": "defaultStartDate",
+          "label": "Default Start Date (YYYY-MM-DD)",
+          "defaultValue": ""
+        },
+        {
+          "type": "TEXTINPUT",
+          "id": "defaultEndDate",
+          "label": "Default End Date (YYYY-MM-DD)",
+          "defaultValue": ""
+        },
+        {
+          "type": "CHECKBOX",
+          "id": "keepEmptyDates",
+          "label": "Keep Empty Dates"
+        }
+      ]
+    },
+    {
+      "id": "textStyling",
+      "label": "Text",
       "elements": [
         {
           "type": "FONT_COLOR",
@@ -32,28 +54,70 @@
         },
         {
           "type": "FONT_FAMILY",
-          "id": "fontFamily",
+          "id": "textFontFamily",
           "label": "Font Family",
           "defaultValue": "Roboto"
         },
         {
+          "id": "buttonTextFontSize",
+          "label": "Button Font size",
+          "type": "FONT_SIZE"
+        }
+      ]
+    },
+    {
+      "id": "iconStyling",
+      "label": "Icon",
+      "elements": [
+        {
+          "type": "SELECT_RADIO",
+          "id": "iconTheme",
+          "label": "Icon Theme",
+          "defaultValue": "dark",
+          "options": [
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "backgroundStyling",
+      "label": "Background and Border",
+      "elements": [
+        {
           "type": "FILL_COLOR",
           "id": "backgroundColor",
-          "label": "Background Color",
-          "defaultValue": {
-            "color": "#ffffff"
-          }
+          "label": "Background Color"
         },
         {
-          "type": "TEXTINPUT",
+          "id": "backgroundOpacity",
+          "label": "Background Opacity",
+          "type": "OPACITY",
+          "defaultValue": "1"
+        },
+        {
           "id": "borderRadius",
-          "label": "Border Radius (px)",
+          "label": "Border Radius",
+          "type": "BORDER_RADIUS",
           "defaultValue": "4"
         },
         {
-          "type": "OPACITY",
-          "id": "opacity",
-          "label": "Opacity"
+          "type": "BORDER_COLOR",
+          "id": "borderColor",
+          "label": "Border Color"
+        },
+        {
+          "type": "LINE_WEIGHT",
+          "id": "borderWidth",
+          "label": "Border Weight",
+          "defaultValue": "1"
         }
       ]
     }
