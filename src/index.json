@@ -32,11 +32,6 @@
           "id": "defaultEndDate",
           "label": "Default End Date (YYYY-MM-DD)",
           "defaultValue": ""
-        },
-        {
-          "type": "CHECKBOX",
-          "id": "keepEmptyDates",
-          "label": "Keep Empty Dates"
         }
       ]
     },

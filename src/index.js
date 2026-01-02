@@ -421,43 +421,44 @@ const drawViz = (data) => {
     }
 
     if (start || end) {
-      // Get available dates from the data
+      // Safely check if keepEmptyDates is enabled
+      const keepEmptyDates = false; //data.style.keepEmptyDates && data.style.keepEmptyDates.value;
+      
+      // Get available dates from the data, separating valid dates from empty/null values
       let dateSet = new Set();
+      let emptyDateValues = new Set(); // Capture actual empty/null values as they exist in data
+      
       if (data.tables && data.tables.DEFAULT) {
         data.tables.DEFAULT.forEach(function(row) {
           const dateValue = row.dateDimension && row.dateDimension[0];
-          if (dateValue) {
+          // Check if this is a valid date value
+          if (dateValue !== undefined && dateValue !== null && dateValue !== '' && 
+              !(typeof dateValue === 'number' && isNaN(dateValue)) &&
+              !(typeof dateValue === 'string' && dateValue.trim() === '')) {
             dateSet.add(dateValue);
+          } else if (keepEmptyDates) {
+            // Capture the actual empty/null value as it exists in the data
+            // We need to use the exact value that Looker has for this row
+            emptyDateValues.add(dateValue);
           }
         });
       }
       const availableDates = Array.from(dateSet);
-      // console.log(`Available dates in dataset: ${availableDates.length} dates`);
-      // console.log('Sample available dates:', availableDates.slice(0, 10));
+      const emptyDates = Array.from(emptyDateValues);
+      
+      console.log(`Available dates in dataset: ${availableDates.length} dates`);
+      console.log('keepEmptyDates setting:', keepEmptyDates);
+      console.log('Empty date values found:', emptyDates.length, emptyDates);
 
-      if (availableDates.length === 0) {
+      if (availableDates.length === 0 && emptyDates.length === 0) {
         // console.warn('No date data available - cannot filter');
         return;
       }
 
       const fieldType = dateField.type || 'YEAR_MONTH_DAY';
       
-      // Filter the available dates based on the bounds
+      // Filter the available dates based on the date range bounds
       let filteredDates = availableDates.filter(function(lookerDate) {
-        // Handle null/empty/undefined/NaN/malformed date values robustly
-        // console.log('lookerDate: ', lookerDate, typeof(lookerDate));
-        if (
-          data.style.keepEmptyDates.value && (
-            lookerDate === undefined ||
-            lookerDate === null ||
-            lookerDate === "" ||
-            (typeof lookerDate === "number" && isNaN(lookerDate)) ||
-            (typeof lookerDate === "string" && lookerDate.trim() === "")
-          )
-        ) {
-          // console.log('keeping empty date');
-          return true;
-        }
         const comparableDate = lookerDateToComparable(lookerDate, fieldType);
 
         // Check start bound (>= start)
@@ -473,13 +474,22 @@ const drawViz = (data) => {
         return true;
       });
 
-      // Add empty date if keepEmptyDates is true
-      if (data.style.keepEmptyDates.value) {
-        filteredDates.push('')
+      /*
+      // NOTE: Adding empty/null values to Looker cross-filter breaks the filter entirely.
+      // Looker Studio interprets '' in filter values as a wildcard, causing all records to match.
+      // As a workaround, we log a warning but don't add empty values to the filter.
+      // To include records with empty dates, users should create a calculated field in the data
+      // source that converts NULL dates to a marker like "(No Date)".
+      if (keepEmptyDates && emptyDates.length > 0) {
+        console.warn('keepEmptyDates is enabled, but adding empty values to Looker cross-filter breaks filtering.');
+        console.warn('Empty date records may not be included. Consider using a calculated field to convert NULL dates to a marker value.');
+        // We intentionally do NOT add empty values to avoid breaking the filter:
+        // emptyDates.forEach(function(emptyVal) { filteredDates.push(emptyVal); });
       }
+      */
 
-      // console.log(`Filtered to ${filteredDates.length} dates based on bounds`);
-      // console.log('Filtered dates (first 10):', filteredDates.slice(0, 10));
+      console.log(`Filtered to ${filteredDates.length} dates based on bounds`);
+      console.log('Filtered dates (first 10):', filteredDates.slice(0, 10));
 
       if (filteredDates.length === 0) {
         // console.warn('No dates match the selected range in the dataset');
